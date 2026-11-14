@@ -64,3 +64,30 @@ EOF mid-session).
 
 This only pulls from **your own Plex library** — content you already have
 rights to. It does not touch Plex's ad-supported "Watch Free" catalog.
+
+## Running headless Chrome on Unraid (notes, not needed by this tool)
+
+Not required to run `plextool.js` — this is a reference for anyone extending
+it with real browser automation (e.g. testing playback through the actual
+web player instead of hitting the API directly). Unraid's base OS has no
+`apt`/package manager and no browser, so everything has to run in a
+container. Two options, with real tradeoffs:
+
+**1. `lscr.io/linuxserver/chrome`** — full desktop Chrome behind a noVNC web
+UI (`CHROME_CLI` env var passes flags through). Good for visually driving
+Chrome by hand. Bad for scripted automation: stable Google Chrome now
+refuses to open `--remote-debugging-port` even with the flag set, and even
+after dropping an enterprise policy override
+(`/etc/opt/chrome/policies/managed/*.json` with
+`{"DevToolsRemoteDebuggingAllowed": true}`) — no CDP listener ever comes up
+on recent stable Chrome builds. Don't burn time chasing this; it doesn't work
+as of writing.
+
+**2. `mcr.microsoft.com/playwright:*-jammy` + real Chrome installed at
+runtime** — this is what actually works for scripted/automated browser
+testing. Playwright's bundled Chromium has no proprietary H.264/AAC decoder
+(open-source build), so any real media playback silently fails. Fix: `apt
+install google-chrome-stable` inside the container and launch with
+`chromium.launch({ channel: 'chrome' })` instead of the bundled browser.
+Build a small custom image once (base + `ffmpeg` + `google-chrome-stable`)
+rather than re-installing on every run.
