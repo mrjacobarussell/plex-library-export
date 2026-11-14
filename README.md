@@ -1,5 +1,7 @@
 # plex-library-export
 
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/jacobrussell_medic)
+
 Interactive CLI to search your own Plex library and export episodes to `.mp4`.
 
 Search your library (4+ letters), pick a show, pick seasons/episodes (`all`, a
