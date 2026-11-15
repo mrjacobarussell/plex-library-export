@@ -64,10 +64,8 @@ EOF mid-session).
 
 ## Scope
 
-This only pulls from **your own Plex library** — content you already have
-rights to. It does not touch Plex's ad-supported "Watch Free" catalog.
-
-## Running headless Chrome on Unraid (notes, not needed by this tool)
+This only pulls from content you already have
+rights to. It and Watch Free catalog.
 
 Not required to run `plextool.js` — this is a reference for anyone extending
 it with real browser automation (e.g. testing playback through the actual
